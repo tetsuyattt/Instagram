@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth //追加３ログイン状態の確認にFirebase Authenticationクラスを使う　→viewDidAppeareへ
 
 class TabBarController: UITabBarController,UITabBarControllerDelegate {
 //追加１UITabBarControllerDelegate追加
@@ -46,6 +47,22 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         }
     }
     //------------ここまで追加１タブバーの設定
+    
+    //------------ここから追加３ログイン画面
+    //この中でログインしているか確認する
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //currentUserがnilならログインしない
+        if Auth.auth().currentUser == nil {
+            //ログインしてなければ、LoginViewControllerにモーダル遷移する
+            //completion＝完了
+            //instantiateViewController()の引数にStoryBoardに設定したStoryBoardID（"Login"）を設定することで該当のViewControllerを得る
+            let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            self.present(loginViewController!, animated: true,completion: nil)
+            //↑resent(_, animated: ,completion: )メソッドでモーダル遷移させる
+        }
+    }
     
 
     /*

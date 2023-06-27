@@ -17,6 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+//------ここから追加４　AppDelegateより　HUD実装
+        //SVPrgressHUDをXcode11以上で実行するための環境調整コード
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window = self.window
+//------ここまで追加４ AppDelegateより　HUD実装
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
