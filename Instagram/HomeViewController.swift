@@ -28,6 +28,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //カスタムセルを登録する
         //xibファイルを読み込むためにUINib(nibName:bundle:)を使い、それをregister(_:forCellReuseIdentifier:)を用いて、カスタムセルを”Cell”identifierで登録する
+        //xibってなんだっけ？　→PostTabelViewCellで作ったやつ　投稿した（された）ものを表示できる画面のこと
         let nib = UINib(nibName: "PostTabelViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
     }
@@ -43,7 +44,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //ログイン状態を確認して、ログインしてる時だけ投稿データの読み込み（監視）をする
         if Auth.auth().currentUser != nil {
             //listenerを登録して投稿データの更新を監視して、（もしエラーがあったら何もしないで戻る）
-            //postRefで、Firebaseのpostsに格納されている投稿データを投稿日時の新しい順位取得するクエリを作成して、addSnapshotListenerメソッドで読み込む
+            //postRefで、Firebaseのpostsに格納されている投稿データを投稿日時の新しい順位取得するクエリ？を作成して、addSnapshotListenerメソッドで読み込む
             let postRef = Firestore.firestore().collection(Const.PostPath).order(by: "date", descending: true)
             listener = postRef.addSnapshotListener() { (querySnapshot, error) in
                 if let error = error {
@@ -68,10 +69,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("DEBUG_PRINT: viewWillDisappear")
-        
         //listenerを削除して監視を停止する
         listener?.remove()
-        
     }
     //ーーーーーーーーーーーーーーーーーーーーここまで追加１１（３）
     
@@ -91,6 +90,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //addTarget(_:action:for)メソッドが、control押しながら青い線で部品からアクション設定する時の代わり
         //selfはこのHomeViewController自身を呼び出し対象にしてる
         cell.likeButton.addTarget(self, action: #selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        
+        
+        //追加５　課題　ホームのコメントボタンを押したら、 →１３９行目
+        cell.commentButton.addTarget(self, action:
+            #selector(touchCommentButton(_:forEvent:)), for: .touchUpInside)
         
         return cell
     }
@@ -128,8 +132,30 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
             postRef.updateData(["likes": updataValue])
         }
+    
     }
 //ーーーーーーーーーここまで追加１２（２）
+//    
+//-----------------ホーム画面でコメントボタンがタップされた時、どの投稿にコメントするか読み取って、その情報を持ってコメント編集画面にモーダル遷移
+    @objc func touchCommentButton(_ sender:UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: commentボタンがクリックされました。")
+        //いいねボタン押された時を丸ぱくり
+        //いっぱいある中の、どの投稿にコメントをするかっていうのがコードされてる、はず
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        let postData = postArray[indexPath!.row]
+    
+        //どの投稿をタップしたか（postData）を、モーダル遷移でcommentViewControllerのfromHomeViewへ渡す
+        let commentViewController = self.storyboard!.instantiateViewController(withIdentifier: "Comment") as! commentViewController
+        
+        commentViewController.postData = postData
+        self.present(commentViewController, animated: true, completion: nil)
+        }
+    
+
+//    
+//    
     /*
     // MARK: - Navigation
 

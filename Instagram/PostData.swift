@@ -14,6 +14,7 @@ class PostData: NSObject {
     var id = ""
     var name = ""
     var caption = ""
+    var comment = "" //追加２　課題　コメント実装
     var date = ""
     var likes: [String] = []
     var isLiked: Bool = false
@@ -31,6 +32,18 @@ class PostData: NSObject {
         if let caption = postDic["caption"] as? String {
             self.caption = caption
         }
+        
+//        if let comment = postDic["comment"] as? String {
+//            self.comment = comment
+//        }↑元々こうだった
+        
+        //チャットGPTから、"comment"の形式を変えるよう指示あり　→今まで上のやつだった時はコメントが表示されなかったけど、変えたら表示された
+        //保存したのは配列になっているが、読み込もうとしてるのは文字列だから読み込めないんじゃねってことだった　→すげえよほんと
+        //joinedでやったら全部のコメントが表示された！すげえ！
+        if let commentArray = postDic["comment"] as? [String] {
+            self.comment = commentArray.joined(separator: "\n")
+        }
+
         
         if let timestamp = postDic["date"] as? Timestamp {
             let formatter = DateFormatter()
@@ -50,10 +63,10 @@ class PostData: NSObject {
             }
         }
     }
+    
+    //追加２　課題「comment\(comment);」入力（デバッグ用、とのこと）
     override var description: String {
-        return "PostData: name=\(name); caption=\(caption); date=\(date); likes=\(likes); id=\(id);"
+        return "PostData: name=\(name); caption=\(caption); comment\(comment); date=\(date); likes=\(likes); id=\(id);"
     }
     
-    
-
 }

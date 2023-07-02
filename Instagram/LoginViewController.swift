@@ -94,33 +94,36 @@ class LoginViewController: UIViewController {
                 }
                 print("DEBUG_PRINT: ユーザー作成に成功しました。")
                 
-            }
-            //表示名の設定
-            //上のcreateUser()メソッドのクロージャ内でアカウント作成の成功を確認したら、次は表示名（displayName）の設定をする
-            let user = Auth.auth().currentUser
-            if let user = user {
-                let changeRequest = user.createProfileChangeRequest()
-                changeRequest.displayName = displayName
-                changeRequest.commitChanges { error in
-                    if let error = error {
-                        //プロフィールの更新でエラーが発生した時
-                        print("DEBUG_PRINT: " + error.localizedDescription)
+//            }　←前はここにこれがあって、アカウント作成時にHUDが止まらず、設定画面の表示名も出てこなかったけど、消して下記の「print("createUser終わり")」の前に置いたらできた。（メンタリング時アドバイスのおかげ）
+                //表示名の設定
+                //上のcreateUser()メソッドのクロージャ内でアカウント作成の成功を確認したら、次は表示名（displayName）の設定をする
+                let user = Auth.auth().currentUser
+                if let user = user {
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.displayName = displayName
+                    changeRequest.commitChanges { error in
+                        if let error = error {
+                            //プロフィールの更新でエラーが発生した時
+                            print("DEBUG_PRINT: " + error.localizedDescription)
+                            
+                            //追加４（２）　HUDで表示
+                            SVProgressHUD.showError(withStatus: "表示名の設定に失敗しました。")
+                            return
+                        }
+                        print("DEBUG_PRINT: [displayName = \(user.displayName!)]の作成に成功しました。")
                         
-                        //追加４（２）　HUDで表示
-                        SVProgressHUD.showError(withStatus: "表示名の設定に失敗しました。")
-                        return
+                        //HUDを消す
+                        SVProgressHUD.dismiss()
+                        
+                        //画面を閉じてタブ画面に戻る
+                        //dismiss=解散　→モーダル遷移で作成したviewControllerを除去する的な意味
+                        self.dismiss(animated: true, completion: nil)
                     }
-                    print("DEBUG_PRINT: [displayName = \(user.displayName!)]の作成に成功しました。")
-                    
-                    //HUDを消す
-                    SVProgressHUD.dismiss()
-                    
-                    //画面を閉じてタブ画面に戻る
-                    //dismiss=解散　→モーダル遷移で作成したviewControllerを除去する的な意味
-                    self.dismiss(animated: true, completion: nil)
                 }
             }
+            print("createUser終わり")
         }
+        
     }
 
 

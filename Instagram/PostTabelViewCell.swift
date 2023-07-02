@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseStorageUI //追加１０（２）
+import FirebaseFirestore //追加課題
 
 //追加１０　９までは投稿したデータがネットに保存されているって状況で、ここからはそのデータをアプリに読み込むって作業をする必要があるってこと
 
@@ -18,7 +19,19 @@ class PostTabelViewCell: UITableViewCell {
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
-       
+    
+//    //追加　課題３コメント表示欄
+    @IBOutlet weak var commentLabel: UILabel!
+    //追加１　課題　コメントボタン
+    //ImageSelectViewControllerのimageEditor()を参考に
+    @IBOutlet weak var commentButton: UIButton!//押したら遷移するように？モーダル？segue？
+    
+    
+//        let commentViewController = self.storyboard!.instantiateViewController(withIdentifier: "Comment") as! CommentViewController
+//        present(commentViewController, animated: true, completion: nil)
+//
+    
+    
 //------------ここから追加１０（２）
     //PostDataの内容をセルに表示
     //内容をセルに表示させるためにsetPostData(_:)メソッドを使う
@@ -32,6 +45,58 @@ class PostTabelViewCell: UITableViewCell {
         
         //キャプションも表示させて、
         self.captionLabel.text = "\(postData.name) : \(postData.caption)"
+
+        
+//        //        追加　課題　コメント実装
+        self.commentLabel.text = "\(postData.comment)"
+        
+//         追加　課題　コメント実装
+//        var allComment = ""
+//        for comment in postData.comment {
+////            allComment += "\(comment)\n"
+//            allComment += [comment]
+//
+//            print("DEBUG_PRINT: PostTableView:comment = \(comment)")
+//            print("DEBUG_PRINT: PostTableView:postData.comment = \(postData.comment)")
+//            //→そもそも出てこない。実行されてないっぽい
+//        }
+//                self.commentLabel.text = "\(allComment)"
+//
+//
+//                print("DEBUG_PRINT: allComment= \(allComment)")
+//                print("DEBUG_PRINT: postData.comment = \(postData.comment)")
+//                →「postData.comment」に何も入ってないから表示されないっぽい
+//                    Firebaseからデータを引っ張ってくるときに問題ありそう
+        
+        
+//        let db = Firestore.firestore()
+//        db.collection(Const.PostPath).document(postData.id).getDocuments { snapshot, error in
+//
+//            if let error = error {
+//                print("データの取得エラー: ", error)
+//                return
+//            }
+//
+//            guard let documents = snapshot?.documents else {
+//                print("ドキュメントがありません")
+//                return
+//            }
+//
+//            for document in documents {
+//                let data = document.data()
+//                if let comments = data["comment"] as? [String] {
+//                    for comment in comments {
+//
+//                        self.commentLabel.text = comment
+//
+//                        print("DEBUG_PRINT: commentLabel.text= \(comment)")
+//                    }
+//                }
+//            }
+//        }
+        
+
+        
         //日時も表示させて、
         self.dateLabel.text = postData.date
         //いいね数も表示させて、
@@ -39,15 +104,19 @@ class PostTabelViewCell: UITableViewCell {
         likeLabel.text = "\(likeNumber)"
         //いいねボタンも表示させる
         //自分がいいねしてれば赤いやつ、そうじゃなければ白いやつってこと
-        //いいねされた時、画像を赤いやつに変更
+        //いいねされた時、ハートの画像を赤いやつに変更
         if postData.isLiked {
-            //setImage(_:for:)で画像を変更できる
+            //setImage(_:for:)でハートの画像を変更できる
             let buttonImage = UIImage(named: "like_exist")
             self.likeButton.setImage(buttonImage, for: .normal)
         } else {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        
+       
+        
+        
     }
 //------------ここまで追加１０（２）
 

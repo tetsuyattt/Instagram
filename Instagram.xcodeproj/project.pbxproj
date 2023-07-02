@@ -12,6 +12,7 @@
 		DA466B7F2A49B2D800D9D48A /* PostTabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA466B7D2A49B2D800D9D48A /* PostTabelViewCell.swift */; };
 		DA466B802A49B2D800D9D48A /* PostTabelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA466B7E2A49B2D800D9D48A /* PostTabelViewCell.xib */; };
 		DA466B822A49D07E00D9D48A /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA466B812A49D07E00D9D48A /* PostData.swift */; };
+		DA606C8A2A4C60C200E25144 /* commentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA606C892A4C60C200E25144 /* commentViewController.swift */; };
 		DABDB0342A4700630084AF4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABDB0332A4700630084AF4D /* AppDelegate.swift */; };
 		DABDB0362A4700630084AF4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABDB0352A4700630084AF4D /* SceneDelegate.swift */; };
 		DABDB03B2A4700630084AF4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DABDB0392A4700630084AF4D /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		DA466B7D2A49B2D800D9D48A /* PostTabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTabelViewCell.swift; sourceTree = "<group>"; };
 		DA466B7E2A49B2D800D9D48A /* PostTabelViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTabelViewCell.xib; sourceTree = "<group>"; };
 		DA466B812A49D07E00D9D48A /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
+		DA606C892A4C60C200E25144 /* commentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentViewController.swift; sourceTree = "<group>"; };
 		DABDB0302A4700630084AF4D /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DABDB0332A4700630084AF4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DABDB0352A4700630084AF4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				DABDB0572A4710770084AF4D /* TabBarController.swift */,
 				DA466B7B2A49A18F00D9D48A /* Const.swift */,
 				DA466B812A49D07E00D9D48A /* PostData.swift */,
+				DA606C892A4C60C200E25144 /* commentViewController.swift */,
 				DA466B7D2A49B2D800D9D48A /* PostTabelViewCell.swift */,
 				DA466B7E2A49B2D800D9D48A /* PostTabelViewCell.xib */,
 				DABDB0392A4700630084AF4D /* Main.storyboard */,
@@ -242,6 +245,7 @@
 				DABDB0582A4710770084AF4D /* TabBarController.swift in Sources */,
 				DABDB04A2A4702380084AF4D /* HomeViewController.swift in Sources */,
 				DABDB0502A4702830084AF4D /* PostViewController.swift in Sources */,
+				DA606C8A2A4C60C200E25144 /* commentViewController.swift in Sources */,
 				DABDB0522A4702930084AF4D /* SettingViewController.swift in Sources */,
 				DABDB0342A4700630084AF4D /* AppDelegate.swift in Sources */,
 				DABDB04C2A47025C0084AF4D /* LoginViewController.swift in Sources */,

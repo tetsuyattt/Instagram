@@ -55,6 +55,8 @@ class PostViewController: UIViewController {
                 return
             }
             //エラーなければ、Firebaseに投稿データを保存する
+            //投稿データのFirebase保存って、ここしかないんだよな。。。
+            //でも、いいねみたいに、投稿者のFieldに保存されるようにするには？
             let name = Auth.auth().currentUser?.displayName
             let postDic = [
                 "name": name!,
