@@ -45,13 +45,14 @@ class commentViewController: UIViewController {
             //「commenter!」にしたらいけたすげえ
             
 //            let postDic = ["\(commenter!): \(self.commentTextField.text!)"]
-            
-            let postDic = ["\(commenter!): \(self.commentTextField.text!)"]
+            // ↓上の[]を消したら表示されるコメントの["〇〇"]なくなった
+            let postDic = "\(commenter!): \(self.commentTextField.text!)"
 
             print("PRINT: コメントView：postDic= \(postDic)")//→表示されるok
             
 //            postRef.updateData(["comment": updataValue])//"comment"フィールドがなかったら追加して、　　←いらない
-            postRef.updateData(["comment":FieldValue.arrayUnion([" \(postDic)"])])//"comment"フィールドがなかったら追加して、"comment"の内容も追加する
+            postRef.updateData(["comment":FieldValue.arrayUnion(["\(postDic)"])])
+        //"comment"フィールドがなかったら追加して、"comment"の内容も追加する
             
             print("PRINT: コメントView：postDic２= \(postDic)")// →表示されるok
 
